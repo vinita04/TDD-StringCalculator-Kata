@@ -70,7 +70,7 @@ class StringCalculator {
     }
     
     private String removeBrackets(String customDelimiters) {
-       return customDelimiters.replaceFirst(ESCAPED_RANGE, "").replaceAll("]", "");
+       return customDelimiters.replaceFirst(ESCAPED_RANGE, "").replaceAll(ESCAPED_RANGE, PIPE_DELIMITER).replaceAll("]", "");
    }
     
 	private String getCustomDelimiters() {

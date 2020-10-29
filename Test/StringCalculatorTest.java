@@ -67,7 +67,12 @@ public class StringCalculatorTest {
     }
     
     @Test
+    public void multipledelimiterShouldBeSummed() {
+        assertEquals(calculator.Add("//[*][%]\n1*2%3"), 6);
+    }
+    
+    @Test
     public void zCountAddFunctionCall() {
-        assertEquals(11, calculator.getCalledCount());
+        assertEquals(12, calculator.getCalledCount());
     }
 }
