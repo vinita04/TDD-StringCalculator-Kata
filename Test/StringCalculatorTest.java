@@ -26,7 +26,9 @@ public class StringCalculatorTest {
     	assertEquals(3, calculator.Add("1,2"));
     }
     
-    
-
+    @Test
+    public void moreDigitsSupported() {
+        assertEquals(45, calculator.Add("1,2,3,4,5,6,7,8,9"));
+    }
 
 }
