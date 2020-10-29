@@ -62,7 +62,12 @@ public class StringCalculatorTest {
     }
     
     @Test
+    public void delimiterOfAnyLengthShouldBeSummed() {
+        assertEquals(calculator.Add("//[***]\n1***2***3"), 6);
+    }
+    
+    @Test
     public void zCountAddFunctionCall() {
-        assertEquals(10, calculator.getCalledCount());
+        assertEquals(11, calculator.getCalledCount());
     }
 }

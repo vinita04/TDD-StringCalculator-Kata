@@ -9,8 +9,11 @@ class StringCalculator {
     public static final int START_INDEX_OFFSET = 3;
     private Pattern customDelimitersValidator = Pattern.compile("//(.*)\n(.*)");
     private Matcher customDelimitersMatcher;
-    private int startIndex;
 	public static int countAddMethodCall=0;
+    private static final String ESCAPED_RANGE = "\\[";
+    private Pattern customDelimitersValidatorWithBrackets = Pattern.compile("//(\\[(\\D+)])+\n.*");
+    private static final String PIPE_DELIMITER_ESCAPED = "\\|";
+	private int startIndex;
 	
     public int Add(String numbers) {
     	countAddMethodCall++;
@@ -54,11 +57,22 @@ class StringCalculator {
     private String getDelimiters(String string) {
         String delimiters = ",|\n";
         if (areCustomDelimitersValid(string)) {
-            delimiters += PIPE_DELIMITER + getCustomDelimiters();
+            delimiters += PIPE_DELIMITER + getEscapedChars();
         }
         return delimiters;
     }
-
+    
+    private String getEscapedChars() {
+        String Delimiter=getCustomDelimiters();
+        if(Delimiter.startsWith("["))
+            Delimiter = removeBrackets(Delimiter);
+        return Pattern.compile(PIPE_DELIMITER_ESCAPED).splitAsStream(Delimiter).map(Pattern::quote).collect(joining(PIPE_DELIMITER));
+    }
+    
+    private String removeBrackets(String customDelimiters) {
+       return customDelimiters.replaceFirst(ESCAPED_RANGE, "").replaceAll("]", "");
+   }
+    
 	private String getCustomDelimiters() {
         String customDelimiters = customDelimitersMatcher.group(1);
         startIndex = customDelimiters.length() + START_INDEX_OFFSET;
@@ -66,7 +80,10 @@ class StringCalculator {
     }
 
     private boolean areCustomDelimitersValid(String string) {
-        customDelimitersMatcher=customDelimitersValidator.matcher(string);
+    	if(string.startsWith("//["))
+            customDelimitersMatcher = customDelimitersValidatorWithBrackets.matcher(string);
+    	else
+    		customDelimitersMatcher=customDelimitersValidator.matcher(string);
         return customDelimitersMatcher.matches();
     }
 }
