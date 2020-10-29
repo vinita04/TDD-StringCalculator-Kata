@@ -9,7 +9,6 @@ import static org.junit.Assert.fail;
 
 public class StringCalculatorTest {
 	private StringCalculator calculator;
-	
 	@Before
     public void initialize() {
         calculator = new StringCalculator();
@@ -23,8 +22,8 @@ public class StringCalculatorTest {
         assertEquals(calculator.Add(""), 0);
     }
 
-    @Test
-    public void numberStringShouldReturnSameNumber() {
+   @Test
+   public void numberStringShouldReturnSameNumber() {
         assertEquals(calculator.Add("1"), 1);
     }
 
@@ -52,8 +51,10 @@ public class StringCalculatorTest {
     @Test
     public void negativeInputReturnsException() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Negatives not allowed!");
-        calculator.Add("-1,2");
+        thrown.expectMessage("Negatives not allowed");
+        calculator.Add("-1,-2");
+        thrown.expectMessage("Negatives not allowed: -5,-15");
+        calculator.Add("-5,10\n-15");
     }
- 
+    
 }
