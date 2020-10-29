@@ -23,7 +23,7 @@ public class StringCalculatorTest {
 
     @Test
     public void twoNumbersShouldBeAdded() {
-    	assertEquals(3, calculator.Add("1,2"));
+    	assertEquals(3, calculator.Add("1,2"));	
     }
     
     @Test
@@ -31,4 +31,9 @@ public class StringCalculatorTest {
         assertEquals(45, calculator.Add("1,2,3,4,5,6,7,8,9"));
     }
 
+	@Test
+    public void numbersNewlineDelimitedShouldBeSummed() {
+        assertEquals(calculator.Add("1\n2,3"), 6);
+        assertEquals(calculator.Add("11\n13\n2"), 26);
+    }
 }
