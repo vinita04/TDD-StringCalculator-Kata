@@ -1,12 +1,12 @@
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
-
+import org.junit.runners.MethodSorters;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StringCalculatorTest {
 	private StringCalculator calculator;
 	@Before
@@ -54,9 +54,15 @@ public class StringCalculatorTest {
         thrown.expectMessage("Negatives not allowed: -1,-2");
         calculator.Add("-1,-2");
     }
-
+    
     @Test
-    public void countAddFunctionCall() {
-        assertEquals(8, calculator.getCalledCount());
+    public void numbersGreaterThan1000AreIgnored() {
+        assertEquals(calculator.Add("5,12,1001"), 17);
+        assertEquals(calculator.Add("1005,22\n4,1214"), 26);
+    }
+    
+    @Test
+    public void zCountAddFunctionCall() {
+        assertEquals(10, calculator.getCalledCount());
     }
 }

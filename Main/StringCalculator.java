@@ -14,7 +14,7 @@ class StringCalculator {
 	
     public int Add(String numbers) {
     	countAddMethodCall++;
-    	System.out.println(countAddMethodCall);
+    	//System.out.println(countAddMethodCall);
         if (numbers==null || numbers.isEmpty()) {
             return 0;
         }
@@ -36,7 +36,7 @@ class StringCalculator {
     }
 
     private int sumArray(List<String> numbersList) {
-        return numbersList.stream().mapToInt(Integer::parseInt).sum();
+        return numbersList.stream().filter(s -> Integer.parseInt(s) <= 1000).mapToInt(Integer::parseInt).sum();
     }
 
 	List<String> getNumbers(String string) {
