@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.joining;
 
 class StringCalculator {
 	private static final String PIPE_DELIMITER = "|";
@@ -10,18 +11,24 @@ class StringCalculator {
     private Matcher customDelimitersMatcher;
     private int startIndex;
 	
+	
     public int Add(String numbers) {
         if (numbers==null || numbers.isEmpty()) {
             return 0;
         }
         List<String> numbersList = getNumbers(numbers);
+        checkForNegativeNumbers(numbersList);
         //System.out.println(sumArray(numbersList) + " "+numbersList);
-        for(String num:numbersList){
-        	if(Integer.parseInt(num)<0){
-        		throw new IllegalArgumentException("Negatives not allowed!");
-        	}
-        }
         return sumArray(numbersList);
+    }
+    
+    private void checkForNegativeNumbers(List<String> numbersList) {
+        String negatives = numbersList.stream()
+                .filter(s -> s.contains("-"))
+                .collect(joining(","));
+        if (!negatives.isEmpty()) {
+            throw new IllegalArgumentException("Negatives not allowed: " + negatives);
+        }
     }
 
     private int sumArray(List<String> numbersList) {
