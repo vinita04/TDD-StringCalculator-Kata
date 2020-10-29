@@ -51,10 +51,12 @@ public class StringCalculatorTest {
     @Test
     public void negativeInputReturnsException() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Negatives not allowed");
+        thrown.expectMessage("Negatives not allowed: -1,-2");
         calculator.Add("-1,-2");
-        thrown.expectMessage("Negatives not allowed: -5,-15");
-        calculator.Add("-5,10\n-15");
     }
-    
+
+    @Test
+    public void countAddFunctionCall() {
+        assertEquals(8, calculator.getCalledCount());
+    }
 }

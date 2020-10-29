@@ -10,9 +10,11 @@ class StringCalculator {
     private Pattern customDelimitersValidator = Pattern.compile("//(.*)\n(.*)");
     private Matcher customDelimitersMatcher;
     private int startIndex;
-	
+	public static int countAddMethodCall=0;
 	
     public int Add(String numbers) {
+    	countAddMethodCall++;
+    	System.out.println(countAddMethodCall);
         if (numbers==null || numbers.isEmpty()) {
             return 0;
         }
@@ -21,7 +23,9 @@ class StringCalculator {
         //System.out.println(sumArray(numbersList) + " "+numbersList);
         return sumArray(numbersList);
     }
-    
+    public int getCalledCount(){
+    	return countAddMethodCall;
+    }
     private void checkForNegativeNumbers(List<String> numbersList) {
         String negatives = numbersList.stream()
                 .filter(s -> s.contains("-"))
