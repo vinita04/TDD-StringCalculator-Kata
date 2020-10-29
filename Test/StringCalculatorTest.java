@@ -23,8 +23,8 @@ public class StringCalculatorTest {
         assertEquals(calculator.Add(""), 0);
     }
 
-	@Test
-	public void numberStringShouldReturnSameNumber() {
+    @Test
+    public void numberStringShouldReturnSameNumber() {
         assertEquals(calculator.Add("1"), 1);
     }
 
@@ -49,4 +49,11 @@ public class StringCalculatorTest {
         assertEquals(3, calculator.Add("//;\n1;2"));
     }
     
+    @Test
+    public void negativeInputReturnsException() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Negatives not allowed!");
+        calculator.Add("-1,2");
+    }
+ 
 }

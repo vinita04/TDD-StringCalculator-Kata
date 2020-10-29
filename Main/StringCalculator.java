@@ -1,4 +1,3 @@
-
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,11 +11,16 @@ class StringCalculator {
     private int startIndex;
 	
     public int Add(String numbers) {
-        if (numbers==null ||numbers.isEmpty()) {
+        if (numbers==null || numbers.isEmpty()) {
             return 0;
         }
         List<String> numbersList = getNumbers(numbers);
-        //System.out.println(sumArray(numbersList));
+        //System.out.println(sumArray(numbersList) + " "+numbersList);
+        for(String num:numbersList){
+        	if(Integer.parseInt(num)<0){
+        		throw new IllegalArgumentException("Negatives not allowed!");
+        	}
+        }
         return sumArray(numbersList);
     }
 
@@ -43,7 +47,7 @@ class StringCalculator {
         }
         return delimiters;
     }
-	
+
 	private String getCustomDelimiters() {
         String customDelimiters = customDelimitersMatcher.group(1);
         startIndex = customDelimiters.length() + START_INDEX_OFFSET;
